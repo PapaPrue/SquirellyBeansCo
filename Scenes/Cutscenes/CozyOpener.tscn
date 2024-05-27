@@ -1,0 +1,195 @@
+[gd_scene load_steps=16 format=3 uid="uid://dar6a1hfec1ag"]
+
+[ext_resource type="Script" path="res://Scenes/Cutscenes/Intro.cs" id="1_5mjxa"]
+[ext_resource type="Texture2D" uid="uid://cqbdd5bbj6j88" path="res://Sprites/Sprites/SquirrelWaitress.png" id="1_e5ic5"]
+[ext_resource type="Texture2D" uid="uid://bvo06jk6ggxe2" path="res://Sprites/Sprites/CozyCafe.png" id="2_tr3gd"]
+[ext_resource type="Texture2D" uid="uid://dkc40klj8jee1" path="res://Sprites/Sprites/Broom.png" id="3_yojiw"]
+[ext_resource type="AudioStream" uid="uid://c37rbhu1ua357" path="res://Sounds/SFX/humming-7141.mp3" id="5_tqsqi"]
+[ext_resource type="FontFile" uid="uid://d1lli8iuorjvc" path="res://Fonts/where-is-the-rest/Where is the rest.ttf" id="6_174ff"]
+
+[sub_resource type="Animation" id="Animation_di1du"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i0snq"]
+resource_name = "WaitressSweep"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_142b7"]
+_data = {
+"RESET": SubResource("Animation_di1du"),
+"WaitressSweep": SubResource("Animation_i0snq")
+}
+
+[sub_resource type="Animation" id="Animation_pcgc2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_22c0r"]
+resource_name = "TurnOn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_djnwe"]
+_data = {
+"RESET": SubResource("Animation_pcgc2"),
+"TurnOn": SubResource("Animation_22c0r")
+}
+
+[sub_resource type="Animation" id="Animation_627bc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bmrkv"]
+resource_name = "Sweep"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwg5s"]
+_data = {
+"RESET": SubResource("Animation_627bc"),
+"Sweep": SubResource("Animation_bmrkv")
+}
+
+[node name="CozyOpener" type="Node2D" node_paths=PackedStringArray("cam", "zoomInPoint", "NodesToBeInvisible", "textToBeVisible")]
+script = ExtResource("1_5mjxa")
+sceneloaderPath = "res://Scenes/MinigameHub/mini_game_hub.tscn"
+cam = NodePath("Camera2D")
+zoomInPoint = NodePath("ZoomInPoint")
+NodesToBeInvisible = [NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Camera2D"), NodePath("ZoomInPoint"), NodePath("AudioStreamPlayer2D")]
+textToBeVisible = [NodePath("RichTextLabel"), NodePath("RichTextLabel2")]
+CozyMode = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1517, 615)
+scale = Vector2(9, 9)
+texture = ExtResource("1_e5ic5")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+autoplay = "WaitressSweep"
+libraries = {
+"": SubResource("AnimationLibrary_142b7")
+}
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(967, 543)
+texture = ExtResource("2_tr3gd")
+hframes = 2
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D2"]
+autoplay = "TurnOn"
+libraries = {
+"": SubResource("AnimationLibrary_djnwe")
+}
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1521, 803)
+scale = Vector2(4, 4)
+texture = ExtResource("3_yojiw")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D3"]
+autoplay = "Sweep"
+libraries = {
+"": SubResource("AnimationLibrary_jwg5s")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(970, 540)
+
+[node name="ZoomInPoint" type="Node2D" parent="."]
+position = Vector2(915, 161)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_tqsqi")
+volume_db = 2.0
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 837.0
+offset_top = 117.0
+offset_right = 990.0
+offset_bottom = 139.0
+theme_override_fonts/normal_font = ExtResource("6_174ff")
+theme_override_font_sizes/normal_font_size = 0
+text = "Squirrely Beans TV."
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 867.0
+offset_top = 162.0
+offset_right = 967.0
+offset_bottom = 202.0
+theme_override_fonts/normal_font = ExtResource("6_174ff")
+text = "Cozy Mode"

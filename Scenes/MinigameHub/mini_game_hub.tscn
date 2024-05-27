@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://duf6xsde6wyhx"]
+
+[ext_resource type="Script" path="res://Scenes/MinigameHub/sceneloader.cs" id="1_gw5fw"]
+[ext_resource type="FontFile" uid="uid://d1lli8iuorjvc" path="res://Fonts/where-is-the-rest/Where is the rest.ttf" id="2_8ygt1"]
+[ext_resource type="Texture2D" uid="uid://bdjgv5sdh1yl7" path="res://Sprites/Sprites/BlackScreen.png" id="3_bdfcx"]
+[ext_resource type="AudioStream" uid="uid://lmo15tvbxogd" path="res://Sounds/SFX/beep-07a.wav" id="4_2p0dd"]
+[ext_resource type="AudioStream" uid="uid://bfdd5swjterfk" path="res://Sounds/SFX/woo-105117.mp3" id="5_55vyf"]
+[ext_resource type="AudioStream" uid="uid://dqw1wx51qj65h" path="res://Sounds/SFX/girl-oh-no-150550.mp3" id="6_10l1j"]
+
+[node name="MiniGameHub" type="Node2D" node_paths=PackedStringArray("audios", "status", "lifeCounter")]
+script = ExtResource("1_gw5fw")
+pathNames = PackedStringArray("res://Scenes/MiniGames/Level1/Blow.tscn", "res://Scenes/MiniGames/Level1/Catch.tscn", "res://Scenes/MiniGames/Level1/Copy.tscn", "res://Scenes/MiniGames/Level1/Dress.tscn", "res://Scenes/MiniGames/Level1/Hurdle.tscn", "res://Scenes/MiniGames/Level1/Maze.tscn", "res://Scenes/MiniGames/Level1/Pick.tscn", "res://Scenes/MiniGames/Level1/Rake.tscn", "res://Scenes/MiniGames/Level1/TakeOut.tscn", "res://Scenes/MiniGames/Level1/TeaDrop.tscn", "res://Scenes/MiniGames/Level1/TrickOTreat.tscn")
+hardModePaths = PackedStringArray("res://Scenes/MiniGames/Level2/Blow.tscn", "res://Scenes/MiniGames/Level2/Catch.tscn", "res://Scenes/MiniGames/Level2/Copy.tscn", "res://Scenes/MiniGames/Level2/Dress.tscn", "res://Scenes/MiniGames/Level2/Hurdle.tscn", "res://Scenes/MiniGames/Level2/Maze.tscn", "res://Scenes/MiniGames/Level2/Pick.tscn", "res://Scenes/MiniGames/Level2/Rake.tscn", "res://Scenes/MiniGames/Level2/RotatePicutes.tscn", "res://Scenes/MiniGames/Level2/TakeOut.tscn", "res://Scenes/MiniGames/Level2/TeaDrop.tscn", "res://Scenes/MiniGames/Level2/TrickOTreat.tscn")
+CozyMode = true
+audios = [NodePath("SoundHandler/AudioStreamPlayer"), NodePath("SoundHandler/Correct"), NodePath("SoundHandler/Incorrect")]
+status = NodePath("Canvas/RichTextLabel")
+lifeCounter = NodePath("Canvas/Live Counter")
+
+[node name="Canvas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1052.0
+offset_top = 529.0
+offset_right = 1092.0
+offset_bottom = 569.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Live Counter" type="RichTextLabel" parent="Canvas"]
+z_index = 1
+layout_mode = 0
+offset_left = -1046.0
+offset_top = -519.0
+offset_right = -741.0
+offset_bottom = -422.0
+theme_override_fonts/normal_font = ExtResource("2_8ygt1")
+theme_override_font_sizes/normal_font_size = 64
+text = "Cozy Mode"
+
+[node name="MiniGameName" type="RichTextLabel" parent="Canvas"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.012
+anchor_top = -4.2
+anchor_right = 2.012
+anchor_bottom = -4.2
+offset_left = -593.48
+offset_top = -164.0
+offset_right = 401.52
+offset_bottom = 8.0
+theme_override_colors/default_color = Color(1, 1, 0.941176, 1)
+theme_override_fonts/normal_font = ExtResource("2_8ygt1")
+theme_override_font_sizes/normal_font_size = 128
+text = "\" \""
+fit_content = true
+tab_size = 5
+
+[node name="LevelNumber" type="RichTextLabel" parent="Canvas"]
+layout_mode = 0
+offset_left = -100.0
+offset_top = -427.0
+offset_right = 83.0
+offset_bottom = -305.0
+theme_override_fonts/normal_font = ExtResource("2_8ygt1")
+theme_override_font_sizes/normal_font_size = 80
+text = "00"
+
+[node name="Pizza" type="Sprite2D" parent="Canvas"]
+z_index = -2
+position = Vector2(-90, 12)
+texture = ExtResource("3_bdfcx")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas"]
+layout_mode = 0
+offset_left = -2695.0
+offset_top = -187.0
+offset_right = -2655.0
+offset_bottom = 61.0
+
+[node name="SoundHandler" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundHandler"]
+stream = ExtResource("4_2p0dd")
+
+[node name="Correct" type="AudioStreamPlayer" parent="SoundHandler"]
+stream = ExtResource("5_55vyf")
+
+[node name="Incorrect" type="AudioStreamPlayer" parent="SoundHandler"]
+stream = ExtResource("6_10l1j")

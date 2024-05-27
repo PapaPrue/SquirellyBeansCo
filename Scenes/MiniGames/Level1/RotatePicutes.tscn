@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://w2s0e3k8pvk2"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_exu0n"]
+[ext_resource type="Script" path="res://GameScripts/RotateHandler.cs" id="2_hbq4o"]
+[ext_resource type="Texture2D" uid="uid://b16omhxsy428h" path="res://Sprites/Sprites/Picutre.png" id="3_c7oc3"]
+[ext_resource type="Script" path="res://GameScripts/Rotator.cs" id="3_w1mql"]
+[ext_resource type="Texture2D" uid="uid://6bty3fegimim" path="res://Sprites/Sprites/PictureBacgkround.png" id="4_ak125"]
+[ext_resource type="AudioStream" uid="uid://c45ngkvug4f47" path="res://Sounds/Music/inspiring-landscape-121838.mp3" id="6_ibf6k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bg8l8"]
+size = Vector2(119, 119.5)
+
+[node name="RotatePicutes" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalObjects", "rotateHandler")]
+script = ExtResource("1_exu0n")
+collectibles = []
+characters = []
+goalObjects = []
+rotateHandler = NodePath("Handler")
+rotateGame = true
+timer = 5.0
+
+[node name="Handler" type="Node2D" parent="." node_paths=PackedStringArray("rotator")]
+script = ExtResource("2_hbq4o")
+rotator = NodePath("Picture1")
+
+[node name="Picture1" type="RigidBody2D" parent="Handler"]
+position = Vector2(843, 593)
+rotation = 2.33874
+gravity_scale = 0.0
+script = ExtResource("3_w1mql")
+PressToRotate = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handler/Picture1"]
+position = Vector2(4.5, -5.75)
+shape = SubResource("RectangleShape2D_bg8l8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Handler/Picture1"]
+position = Vector2(4, -7)
+texture = ExtResource("3_c7oc3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(963, 544)
+texture = ExtResource("4_ak125")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ibf6k")
+autoplay = true

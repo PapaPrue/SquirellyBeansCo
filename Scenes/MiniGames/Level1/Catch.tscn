@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://c5nuocr7htb78"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_0i6gy"]
+[ext_resource type="Texture2D" uid="uid://jp5w80rxx600" path="res://Sprites/Sprites/FooballTileSheet.png" id="2_b1hob"]
+[ext_resource type="PackedScene" uid="uid://cubjf7olynsl4" path="res://Characters/WideReciever.tscn" id="2_ouxl2"]
+[ext_resource type="PackedScene" uid="uid://6lahavppob8f" path="res://Objects/Football.tscn" id="3_2repa"]
+[ext_resource type="Texture2D" uid="uid://c23vgysrykrw4" path="res://Sprites/Sprites/AlertSprite.png" id="5_yxknt"]
+[ext_resource type="Texture2D" uid="uid://dguk8hqjuxdpx" path="res://Sprites/Sprites/Stadium.png" id="6_l5hf1"]
+[ext_resource type="AudioStream" uid="uid://dq3svah4s5cn2" path="res://Sounds/SFX/StadiumAmbience.mp3" id="7_tnpc3"]
+[ext_resource type="FontFile" uid="uid://5rfmhnlpxesp" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Regular.ttf" id="8_g7mku"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_162yx"]
+texture = ExtResource("2_b1hob")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSet" id="TileSet_ha2an"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_162yx")
+
+[node name="Catch" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalObjects", "timerText")]
+script = ExtResource("1_0i6gy")
+collectibles = [NodePath("Football")]
+characters = []
+goalObjects = []
+collectingMinigame = true
+timer = 6.0
+timerText = NodePath("RichTextLabel")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_ouxl2")]
+position = Vector2(-743, 254)
+JumpVelocity = -2000.0
+gravity = 2700.0
+footballer = true
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -1
+tile_set = SubResource("TileSet_ha2an")
+format = 2
+layer_0/tile_data = PackedInt32Array(917503, 0, 0, 983039, 0, 0, 1048575, 0, 0, 1114111, 0, 0, 851968, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 851969, 0, 0, 917505, 0, 0, 983041, 0, 0, 1048577, 0, 0, 917506, 0, 0, 983042, 0, 0, 1048578, 0, 0, 851971, 65536, 0, 917507, 65536, 0, 983043, 65536, 0, 1048579, 65536, 0, 851972, 0, 0, 917508, 0, 0, 983044, 0, 0, 1048580, 0, 0, 851973, 0, 0, 917509, 0, 0, 983045, 0, 0, 1048581, 0, 0, 851974, 0, 0, 917510, 0, 0, 983046, 0, 0, 1048582, 0, 0, 851975, 0, 0, 917511, 0, 0, 983047, 0, 0, 1048583, 0, 0, 851976, 0, 0, 917512, 0, 0, 983048, 0, 0, 1048584, 0, 0, 851977, 0, 0, 917513, 0, 0, 983049, 0, 0, 1048585, 0, 0, 851978, 0, 0, 917514, 0, 0, 983050, 0, 0, 1048586, 0, 0, 851979, 0, 0, 917515, 0, 0, 983051, 0, 0, 1048587, 0, 0, 851980, 0, 0, 917516, 0, 0, 983052, 0, 0, 1048588, 0, 0, 851981, 0, 0, 917517, 0, 0, 983053, 0, 0, 1048589, 0, 0, 851982, 0, 0, 917518, 0, 0, 983054, 0, 0, 1048590, 0, 0, 851983, 0, 0, 917519, 0, 0, 983055, 0, 0, 1048591, 0, 0, 851984, 0, 0, 917520, 0, 0, 983056, 0, 0, 1048592, 0, 0, 851985, 0, 0, 917521, 0, 0, 983057, 0, 0, 1048593, 0, 0, 851986, 0, 0, 917522, 0, 0, 983058, 0, 0, 1048594, 0, 0, 851987, 0, 0, 917523, 0, 0, 983059, 0, 0, 1048595, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 851989, 0, 0, 917525, 0, 0, 983061, 0, 0, 1048597, 0, 0, 851990, 0, 0, 917526, 0, 0, 983062, 0, 0, 1048598, 0, 0, 851991, 0, 0, 917527, 0, 0, 983063, 0, 0, 1048599, 0, 0, 851992, 0, 0, 917528, 0, 0, 983064, 0, 0, 1048600, 0, 0, 851993, 0, 0, 917529, 0, 0, 983065, 0, 0, 1048601, 0, 0, 851994, 0, 0, 917530, 0, 0, 983066, 0, 0, 1048602, 0, 0, 851995, 0, 0, 917531, 0, 0, 983067, 0, 0, 1048603, 0, 0, 851996, 0, 0, 917532, 0, 0, 983068, 0, 0, 1048604, 0, 0, 851997, 0, 0, 917533, 0, 0, 983069, 0, 0, 1048605, 0, 0, 851970, 0, 0)
+
+[node name="Football" parent="." node_paths=PackedStringArray("alertSprite") instance=ExtResource("3_2repa")]
+z_index = -1
+position = Vector2(1535, -524)
+dud = false
+travelSpeed = 1250
+alertSprite = NodePath("../Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1844, 79)
+scale = Vector2(2, 2)
+texture = ExtResource("5_yxknt")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(961, 349)
+texture = ExtResource("6_l5hf1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tnpc3")
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 6.0
+offset_top = 1014.0
+offset_right = 96.0
+offset_bottom = 1087.0
+theme_override_fonts/normal_font = ExtResource("8_g7mku")
+theme_override_font_sizes/normal_font_size = 32

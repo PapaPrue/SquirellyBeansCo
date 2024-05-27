@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://cie53q0m2vtox"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_7d7on"]
+[ext_resource type="Script" path="res://GameScripts/Rotator.cs" id="2_5ulra"]
+[ext_resource type="Script" path="res://GameScripts/GoalObject.cs" id="2_sy54e"]
+[ext_resource type="Texture2D" uid="uid://dx84dnlkpy86p" path="res://Sprites/Sprites/PieSlicer.png" id="3_yag27"]
+[ext_resource type="Texture2D" uid="uid://ggfq1xoxss4k" path="res://Sprites/Sprites/Pie.png" id="5_kmntx"]
+[ext_resource type="Texture2D" uid="uid://d76idlcvy1pw" path="res://Sprites/Sprites/Platter.png" id="6_ep0no"]
+[ext_resource type="Texture2D" uid="uid://twkr3gqpp6an" path="res://Sprites/Sprites/TableTopDown.png" id="7_s2n32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u212c"]
+size = Vector2(1380, 556)
+
+[node name="Pie" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalArea", "objectOfInterest", "goalObjects")]
+script = ExtResource("1_7d7on")
+collectibles = []
+characters = []
+goalArea = NodePath("Slicer")
+objectOfInterest = NodePath("Platter/RigidBody2D/Pie")
+goalObjects = []
+AreaGoalGame = true
+timer = 5.0
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(1354, 490)
+rotation = -1.5708
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_yag27")
+
+[node name="Slicer" type="Area2D" parent="." node_paths=PackedStringArray("mgm")]
+position = Vector2(1535, 463)
+scale = Vector2(0.25, 0.25)
+script = ExtResource("2_sy54e")
+mgm = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slicer"]
+position = Vector2(-1994, 116)
+shape = SubResource("RectangleShape2D_u212c")
+
+[node name="Table" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(965, 546)
+texture = ExtResource("7_s2n32")
+
+[node name="PivotPoint" type="StaticBody2D" parent="."]
+position = Vector2(795, 530)
+
+[node name="Platter" type="Node2D" parent="." node_paths=PackedStringArray("WinArea")]
+position = Vector2(549, 524)
+script = ExtResource("2_5ulra")
+areaBased = true
+WinArea = NodePath("../Slicer")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Platter"]
+position = Vector2(1, -1)
+gravity_scale = 0.0
+
+[node name="Platter" type="Sprite2D" parent="Platter/RigidBody2D"]
+z_index = -1
+position = Vector2(-5, 1)
+scale = Vector2(15, 15)
+texture = ExtResource("6_ep0no")
+
+[node name="Pie" type="Sprite2D" parent="Platter/RigidBody2D"]
+position = Vector2(-294, -13)
+scale = Vector2(10, 10)
+texture = ExtResource("5_kmntx")
+
+[node name="PieSlice" type="CollisionPolygon2D" parent="Platter/RigidBody2D"]
+polygon = PackedVector2Array(-424, -270, -148, -12, -405, 244, -442, 225, -492, -1, -466, -187)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Platter/RigidBody2D"]
+node_a = NodePath("..")
+
+[connection signal="body_entered" from="Slicer" to="Slicer" method="_on_body_entered"]
+[connection signal="body_exited" from="Slicer" to="Slicer" method="_on_body_exited"]

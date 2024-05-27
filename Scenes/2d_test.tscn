@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5qpfhj5ddu4k"]
+
+[ext_resource type="PackedScene" uid="uid://coib4ms84kqma" path="res://Ground.tscn" id="1_h8uuj"]
+[ext_resource type="PackedScene" uid="uid://mgqanrb7s5ta" path="res://Characters/platform_character_body_2d.tscn" id="2_r4rhd"]
+
+[node name="2DTest" type="Node2D"]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("1_h8uuj")]
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_r4rhd")]
+position = Vector2(30, 189)

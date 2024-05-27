@@ -1,0 +1,142 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwyw38ehnqgvy"]
+
+[ext_resource type="Script" path="res://GameScripts/FourDirectionChar.cs" id="1_sgigi"]
+[ext_resource type="Texture2D" uid="uid://cw7ir1vg7sa1w" path="res://Sprites/Sprites/GhostCharacterIdle.png" id="2_pvocd"]
+[ext_resource type="Texture2D" uid="uid://c38s5g7hbi0g2" path="res://Sprites/Sprites/GhostCharacterWalkSide.png" id="3_q0khj"]
+[ext_resource type="Texture2D" uid="uid://ldku850e3mpt" path="res://Sprites/Sprites/GhostCharacterWalkDown.png" id="4_fsn65"]
+[ext_resource type="Texture2D" uid="uid://dj2uh1o2vxib8" path="res://Sprites/Sprites/GhostCharacterWalkUp.png" id="5_pwtjl"]
+
+[sub_resource type="Animation" id="Animation_ujqdm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("walkDown:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("walkUp:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_f0lqk"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_85gwm"]
+resource_name = "walkDown"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("walkDown:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_klty4"]
+resource_name = "walkUp"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("walkUp:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qpm84"]
+_data = {
+"RESET": SubResource("Animation_ujqdm"),
+"walk": SubResource("Animation_f0lqk"),
+"walkDown": SubResource("Animation_85gwm"),
+"walkUp": SubResource("Animation_klty4")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nspl5"]
+radius = 22.0
+height = 62.0
+
+[node name="Ghost" type="CharacterBody2D"]
+script = ExtResource("1_sgigi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+libraries = {
+"": SubResource("AnimationLibrary_qpm84")
+}
+
+[node name="Idle" type="Sprite2D" parent="."]
+texture = ExtResource("2_pvocd")
+
+[node name="walk" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1, 0)
+texture = ExtResource("3_q0khj")
+hframes = 4
+
+[node name="walkDown" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+texture = ExtResource("4_fsn65")
+hframes = 4
+
+[node name="walkUp" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -2)
+texture = ExtResource("5_pwtjl")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_nspl5")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://co3da7voor4l8"]
+
+[ext_resource type="Script" path="res://Scenes/Cutscenes/Intro.cs" id="1_oet1u"]
+[ext_resource type="Texture2D" uid="uid://dyeo2pmgw64lo" path="res://Sprites/Sprites/RushCafe1-sheet.png" id="2_d3n8o"]
+[ext_resource type="Texture2D" uid="uid://bvb37bb6phwrk" path="res://Sprites/Sprites/SquirrelWaitressSad.png" id="3_sk5vp"]
+[ext_resource type="FontFile" uid="uid://cfyi4a80jp8sj" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Bold.ttf" id="4_mqbue"]
+[ext_resource type="AudioStream" uid="uid://3sybyxmeyxhk" path="res://Sounds/SFX/angry-mob-loop-6847.mp3" id="5_hdbf0"]
+
+[sub_resource type="Animation" id="Animation_uedxy"]
+resource_name = "Intro"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_nqmnj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bx7w7"]
+_data = {
+"Intro": SubResource("Animation_uedxy"),
+"RESET": SubResource("Animation_nqmnj")
+}
+
+[node name="RushMode" type="Node2D" node_paths=PackedStringArray("cam", "zoomInPoint", "NodesToBeInvisible", "textToBeVisible")]
+script = ExtResource("1_oet1u")
+sceneloaderPath = "res://Scenes/MinigameHub/HardMode.tscn"
+cam = NodePath("Camera2D")
+zoomInPoint = NodePath("Node2D")
+NodesToBeInvisible = [NodePath("Sprite2D"), NodePath("Camera2D"), NodePath("Node2D"), NodePath("RichTextLabel"), NodePath("Sprite2D2"), NodePath("AudioStreamPlayer")]
+textToBeVisible = [NodePath("RichTextLabel")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(964, 544)
+texture = ExtResource("2_d3n8o")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+autoplay = "Intro"
+libraries = {
+"": SubResource("AnimationLibrary_bx7w7")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(965, 546)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(583, 366)
+scale = Vector2(7, 7)
+texture = ExtResource("3_sk5vp")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(580, 303)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 489.0
+offset_top = 345.0
+offset_right = 722.0
+offset_bottom = 374.0
+theme_override_fonts/normal_font = ExtResource("4_mqbue")
+theme_override_font_sizes/normal_font_size = 16
+text = "\"Oh No.. The Brunch Rush...\""
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hdbf0")
+autoplay = true

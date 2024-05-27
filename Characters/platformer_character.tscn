@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbmttoxuwjgyc"]
+
+[ext_resource type="Texture2D" uid="uid://b8atjfjh458g1" path="res://icon.svg" id="2_d6oxc"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_yiigb"]
+script/source = "using Godot;
+using System;
+
+public partial class PlatformerCharacter : AnimatableBody2D
+{
+	
+	float speed=600;
+	Vector2 velocity=Vector2.Zero;
+	float direction=0;
+	public override void _Ready()
+	{
+		
+	}
+	public override void _Process(double delta)
+	{
+	   
+		if(Input.IsActionPressed(\"ui_left\"))
+		{
+			direction=-1;
+			velocity=Vector2.Left*speed;
+		}
+		if(Input.IsActionPressed(\"ui_right\"))
+		{
+			direction=1;
+			velocity=Vector2.Right*speed;
+		}
+		
+		if(Input.IsActionPressed(\"ui_up\"))
+		{
+			direction=1;
+			velocity=Vector2.Up*speed;
+		}
+		if(Input.IsActionJustPressed(\"ui_down\"))
+		{
+			direction=-1;
+			velocity=Vector2.Down*speed;
+		}
+		
+		
+	}
+	
+}
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6d7j"]
+size = Vector2(126, 124)
+
+[node name="PlatformerCharacter" type="AnimatableBody2D"]
+script = SubResource("CSharpScript_yiigb")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(1820, 1030)
+shape = SubResource("RectangleShape2D_s6d7j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(911, 515)
+texture = ExtResource("2_d6oxc")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(910, 515)
+shape = SubResource("RectangleShape2D_s6d7j")

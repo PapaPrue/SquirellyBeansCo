@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhp6w6mferf52"]
+
+[ext_resource type="Script" path="res://Objects/CollectibleGoal.cs" id="1_uvtgn"]
+[ext_resource type="Texture2D" uid="uid://b716fafj1euky" path="res://Sprites/Sprites/Apple.png" id="2_agr1g"]
+[ext_resource type="AudioStream" uid="uid://bmkgnrg3hwbi8" path="res://Sounds/SFX/button-124476.mp3" id="3_6xhok"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iog0"]
+radius = 58.5235
+
+[node name="CollectibleGoal" type="Area2D" node_paths=PackedStringArray("audio")]
+script = ExtResource("1_uvtgn")
+audio = NodePath("AudioStreamPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(948, 598)
+scale = Vector2(2, 2)
+texture = ExtResource("2_agr1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(947, 610)
+shape = SubResource("CircleShape2D_0iog0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6xhok")
+pitch_scale = 2.01
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cuy17uqu6o81l"]
+
+[ext_resource type="Texture2D" uid="uid://cs0k4g1jwrrfv" path="res://Sprites/PlaceHolders/UIHolder(Divided).png" id="1_c1vac"]
+[ext_resource type="PackedScene" uid="uid://bhp6w6mferf52" path="res://Objects/Apple.tscn" id="2_umy5i"]
+[ext_resource type="PackedScene" uid="uid://mgqanrb7s5ta" path="res://Characters/platform_character_body_2d.tscn" id="3_7jhmq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hhvtv"]
+size = Vector2(1896, 383)
+
+[node name="Harvest" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(966, 1127)
+texture = ExtResource("1_c1vac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(945, 1200)
+shape = SubResource("RectangleShape2D_hhvtv")
+
+[node name="CollectibleGoal2" parent="." instance=ExtResource("2_umy5i")]
+position = Vector2(-309, 429)
+harvestables = true
+
+[node name="CollectibleGoal" parent="." instance=ExtResource("2_umy5i")]
+position = Vector2(-728, 428)
+
+[node name="CollectibleGoal3" parent="." instance=ExtResource("2_umy5i")]
+position = Vector2(270, 427)
+harvestables = true
+
+[node name="CollectibleGoal4" parent="." instance=ExtResource("2_umy5i")]
+position = Vector2(777, 434)
+harvestables = true
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("3_7jhmq")]
+position = Vector2(-58, 345)
+JumpVelocity = -500.0
+playerControlX = true
+canJump = true
+
+[connection signal="area_entered" from="CollectibleGoal2" to="CollectibleGoal2" method="_on_area_entered"]

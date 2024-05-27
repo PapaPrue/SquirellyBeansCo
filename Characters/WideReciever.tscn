@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cubjf7olynsl4"]
+
+[ext_resource type="Script" path="res://GameScripts/CharacterBody2D.cs" id="1_uhdjg"]
+[ext_resource type="Texture2D" uid="uid://baom3s8p1c7ne" path="res://Sprites/Sprites/FootballCatch.png" id="2_sftmb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ow0sm"]
+radius = 64.0
+height = 184.0
+
+[sub_resource type="Animation" id="Animation_plyss"]
+resource_name = "Jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_mg7ie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3uh6"]
+_data = {
+"Jump": SubResource("Animation_plyss"),
+"RESET": SubResource("Animation_mg7ie")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_uhdjg")
+JumpVelocity = -300.0
+canJump = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(966, 479)
+scale = Vector2(3, 3)
+texture = ExtResource("2_sftmb")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(969, 484)
+shape = SubResource("CapsuleShape2D_ow0sm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i3uh6")
+}

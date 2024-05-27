@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://cgl8g40udtywk"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_7lfup"]
+[ext_resource type="Script" path="res://GameScripts/ReactionGame.cs" id="2_ukml5"]
+[ext_resource type="Texture2D" uid="uid://c23vgysrykrw4" path="res://Sprites/Sprites/AlertSprite.png" id="3_iq2db"]
+[ext_resource type="Texture2D" uid="uid://dge5ucvmdjoyp" path="res://Sprites/Sprites/Stove.png" id="4_6f2t6"]
+[ext_resource type="Texture2D" uid="uid://ds8oxjtxjetqd" path="res://Sprites/Sprites/OpenOven.png" id="5_qkqck"]
+[ext_resource type="AudioStream" uid="uid://bwcecl2juign4" path="res://Sounds/SFX/clock-alarm-8761.mp3" id="6_an6kq"]
+[ext_resource type="Texture2D" uid="uid://cxl412rfobwe" path="res://Sprites/Sprites/RawPie.png" id="7_nt3re"]
+[ext_resource type="Texture2D" uid="uid://cbbeege7c6rsb" path="res://Sprites/Sprites/CookedPie.png" id="8_svp7m"]
+[ext_resource type="Texture2D" uid="uid://c0x1g8hcp5aey" path="res://Sprites/Sprites/BurntPie.png" id="9_n6ua1"]
+[ext_resource type="AudioStream" uid="uid://b710r6ecofefw" path="res://Sounds/SFX/tickingbuzzer-75859.mp3" id="10_64syv"]
+[ext_resource type="FontFile" uid="uid://5rfmhnlpxesp" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Regular.ttf" id="11_cph75"]
+
+[node name="TakeOut" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalObjects", "reactionHandler")]
+script = ExtResource("1_7lfup")
+collectibles = []
+characters = []
+goalObjects = []
+reactionHandler = NodePath("Node2D")
+ReactionBasedGame = true
+timer = 6.0
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("alertSprite", "startingSprite", "reactSprite", "spriteHandler", "reactionSound", "anticipationSound")]
+script = ExtResource("2_ukml5")
+timeToReact = 1.0
+alertSprite = NodePath("AlertSprite")
+startingSprite = NodePath("Closed")
+reactSprite = NodePath("Open")
+spriteHandler = [NodePath("../Sprite2D"), NodePath("../Sprite2D2"), NodePath("../Sprite2D3")]
+reactionSound = NodePath("../AudioStreamPlayer")
+anticipationSound = NodePath("../AudioStreamPlayer2")
+
+[node name="AlertSprite" type="Sprite2D" parent="Node2D"]
+z_index = 1
+position = Vector2(1496, 379)
+scale = Vector2(3, 3)
+texture = ExtResource("3_iq2db")
+
+[node name="Closed" type="Sprite2D" parent="Node2D"]
+position = Vector2(960, 539)
+texture = ExtResource("4_6f2t6")
+
+[node name="Open" type="Sprite2D" parent="Node2D"]
+position = Vector2(-1706, 521)
+texture = ExtResource("5_qkqck")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_an6kq")
+pitch_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(966, 777)
+scale = Vector2(8, 8)
+texture = ExtResource("7_nt3re")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(966, 777)
+scale = Vector2(8, 8)
+texture = ExtResource("8_svp7m")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(966, 777)
+scale = Vector2(8, 8)
+texture = ExtResource("9_n6ua1")
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_64syv")
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 65.0
+offset_top = 1001.0
+offset_right = 155.0
+offset_bottom = 1074.0
+theme_override_fonts/normal_font = ExtResource("11_cph75")
+theme_override_font_sizes/normal_font_size = 32

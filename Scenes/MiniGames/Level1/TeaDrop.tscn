@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmqrtm48wknib"]
+
+[ext_resource type="PackedScene" uid="uid://besq2ifh23vc2" path="res://Characters/TeaBag.tscn" id="1_4vuac"]
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_ttag6"]
+[ext_resource type="Texture2D" uid="uid://17xgt2rjdr7b" path="res://Sprites/Sprites/CoffeTable.png" id="3_a15bw"]
+[ext_resource type="Script" path="res://GameScripts/GoalObject.cs" id="4_iyt7b"]
+[ext_resource type="Texture2D" uid="uid://ddkwx84p6llrh" path="res://Sprites/Sprites/CoffeCup.png" id="5_62fqc"]
+[ext_resource type="Texture2D" uid="uid://6bty3fegimim" path="res://Sprites/Sprites/PictureBacgkround.png" id="6_4jlx2"]
+[ext_resource type="AudioStream" uid="uid://c45ngkvug4f47" path="res://Sounds/Music/inspiring-landscape-121838.mp3" id="7_y03o6"]
+[ext_resource type="AudioStream" uid="uid://bcyju72uclm01" path="res://Sounds/SFX/water-splash-80537.mp3" id="8_ueog2"]
+[ext_resource type="FontFile" uid="uid://5rfmhnlpxesp" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Regular.ttf" id="9_yh8qt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dypfe"]
+size = Vector2(1924, 251)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s25q1"]
+radius = 43.0
+height = 186.0
+
+[node name="TeaDrop" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalArea", "objectOfInterest", "goalObjects")]
+script = ExtResource("1_ttag6")
+collectibles = []
+characters = []
+goalArea = NodePath("GoalArea")
+objectOfInterest = NodePath("TeaBag")
+goalObjects = []
+AreaGoalGame = true
+timer = 6.0
+
+[node name="TeaBag" parent="." instance=ExtResource("1_4vuac")]
+position = Vector2(623, 53)
+scale = Vector2(1.55, 1.55)
+speed = 1400.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(963, 947)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(1, 4.92)
+texture = ExtResource("3_a15bw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_dypfe")
+
+[node name="GoalArea" type="Area2D" parent="." node_paths=PackedStringArray("mgm", "audio")]
+position = Vector2(945, 581)
+script = ExtResource("4_iyt7b")
+mgm = NodePath("..")
+audio = NodePath("../AudioStreamPlayer2")
+
+[node name="Sprite2D" type="Sprite2D" parent="GoalArea"]
+position = Vector2(47, 94)
+texture = ExtResource("5_62fqc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GoalArea"]
+polygon = PackedVector2Array(-75, -59, -85, 249, -57, 252, 43, 254, 138, 253, 181, 250, 162, -59)
+
+[node name="CupColliders" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CupColliders"]
+position = Vector2(811, 675)
+shape = SubResource("CapsuleShape2D_s25q1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CupColliders"]
+polygon = PackedVector2Array(1118, 515, 1129, 514, 1135, 524, 1130, 822, 1125, 819)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="CupColliders"]
+position = Vector2(-271, 9)
+polygon = PackedVector2Array(1118, 515, 1129, 514, 1135, 524, 1130, 822, 1125, 819)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(944, 538)
+texture = ExtResource("6_4jlx2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_y03o6")
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ueog2")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 65.0
+offset_top = 1001.0
+offset_right = 155.0
+offset_bottom = 1074.0
+theme_override_fonts/normal_font = ExtResource("9_yh8qt")
+theme_override_font_sizes/normal_font_size = 32
+
+[connection signal="body_entered" from="GoalArea" to="GoalArea" method="_on_body_entered"]

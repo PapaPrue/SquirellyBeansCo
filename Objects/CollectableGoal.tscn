@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bytr1eqo28pcg"]
+
+[ext_resource type="Script" path="res://Objects/CollectibleGoal.cs" id="1_nnw5b"]
+[ext_resource type="Texture2D" uid="uid://b27w7uuyvd643" path="res://Sprites/PlaceHolders/Coin.png" id="2_h3brc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iog0"]
+radius = 58.5235
+
+[node name="CollectibleGoal" type="Area2D"]
+script = ExtResource("1_nnw5b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(948, 598)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_h3brc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(930, 584)
+shape = SubResource("CircleShape2D_0iog0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

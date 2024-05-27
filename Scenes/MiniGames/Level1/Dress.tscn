@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://difp1gmltuepg"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_ndhc4"]
+[ext_resource type="Script" path="res://GameScripts/SlotGame.cs" id="2_lj23y"]
+[ext_resource type="Texture2D" uid="uid://cmxwli68e1kih" path="res://Sprites/PlaceHolders/GhostBottom.png" id="2_ro0jb"]
+[ext_resource type="Texture2D" uid="uid://1kmvmwc1a2cq" path="res://Sprites/PlaceHolders/ZombieTop.png" id="4_5mnt4"]
+[ext_resource type="Texture2D" uid="uid://pqpeyxq6xh1o" path="res://Sprites/PlaceHolders/PumpkinTop.png" id="5_8qsi4"]
+[ext_resource type="Texture2D" uid="uid://dvlclrnnenun6" path="res://Sprites/PlaceHolders/GhostTop.png" id="6_funnn"]
+[ext_resource type="Texture2D" uid="uid://cb7vxgjgsnqu6" path="res://Sprites/PlaceHolders/FreddyTop.png" id="7_dlqho"]
+[ext_resource type="Texture2D" uid="uid://dpfqb6lixn1ys" path="res://Sprites/Sprites/BlackBacgkround.png" id="8_nfyne"]
+[ext_resource type="AudioStream" uid="uid://sx4fc8riw0cb" path="res://Sounds/SFX/creepy-music-box-halloween-music-horror-scary-spooky-dark-ambient-118577.mp3" id="9_046vm"]
+[ext_resource type="FontFile" uid="uid://5rfmhnlpxesp" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Regular.ttf" id="10_tjxdk"]
+
+[node name="Dress" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalObjects", "slotHandler", "timerText")]
+script = ExtResource("1_ndhc4")
+collectibles = []
+characters = []
+goalObjects = []
+slotHandler = NodePath("Node2D")
+SlotGame = true
+timer = 6.0
+timerText = NodePath("RichTextLabel")
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("objects", "hardObject", "correctObject", "mgm")]
+script = ExtResource("2_lj23y")
+objects = [NodePath("../ZombieTop"), NodePath("../GhostTop"), NodePath("../PumpkinTop"), NodePath("../GhostTop")]
+hardObject = NodePath("../FreddyTop")
+correctObject = NodePath("../GhostTop")
+mgm = NodePath("..")
+
+[node name="GhostBottom" type="Sprite2D" parent="."]
+position = Vector2(973, 435)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_ro0jb")
+
+[node name="ZombieTop" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(981, 195.75)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("4_5mnt4")
+
+[node name="PumpkinTop" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(975, 196.75)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("5_8qsi4")
+
+[node name="GhostTop" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(974, 195.75)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_funnn")
+
+[node name="FreddyTop" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(973, 194)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_dlqho")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(956, 530)
+texture = ExtResource("8_nfyne")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_046vm")
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 65.0
+offset_top = 1001.0
+offset_right = 155.0
+offset_bottom = 1074.0
+theme_override_fonts/normal_font = ExtResource("10_tjxdk")
+theme_override_font_sizes/normal_font_size = 32

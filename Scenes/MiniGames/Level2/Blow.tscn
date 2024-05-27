@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://brg6x76h382su"]
+
+[ext_resource type="Script" path="res://GameScripts/MinigameManager.cs" id="1_f3338"]
+[ext_resource type="Script" path="res://GameScripts/Masher.cs" id="2_ne3bw"]
+[ext_resource type="Texture2D" uid="uid://dt704a0y4rdbk" path="res://Sprites/Sprites/FatSquirrel.png" id="3_241sq"]
+[ext_resource type="Texture2D" uid="uid://b21xu3uff4s17" path="res://Sprites/Sprites/Blow Background.png" id="4_d7fbe"]
+[ext_resource type="AudioStream" uid="uid://c60cfjd0ad0yt" path="res://Sounds/SFX/wind-blowing-sfx-12809.mp3" id="5_l63im"]
+[ext_resource type="FontFile" uid="uid://5rfmhnlpxesp" path="res://Fonts/cabin-sketch/cabin-sketch-v1.02/CabinSketch-Regular.ttf" id="6_twxyn"]
+
+[node name="Blow" type="Node2D" node_paths=PackedStringArray("collectibles", "characters", "goalObjects", "mashHandler")]
+script = ExtResource("1_f3338")
+collectibles = []
+characters = []
+goalObjects = []
+mashHandler = NodePath("Node2D")
+MashGame = true
+timer = 5.0
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
+position = Vector2(-1, -1)
+script = ExtResource("2_ne3bw")
+minimumMash = 17
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(876, 585)
+scale = Vector2(8, 8)
+texture = ExtResource("3_241sq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(961, 540)
+texture = ExtResource("4_d7fbe")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_l63im")
+autoplay = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 65.0
+offset_top = 1001.0
+offset_right = 155.0
+offset_bottom = 1074.0
+theme_override_fonts/normal_font = ExtResource("6_twxyn")
+theme_override_font_sizes/normal_font_size = 32

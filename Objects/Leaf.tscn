@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1ixaqk1rraow"]
+
+[ext_resource type="Script" path="res://Objects/CollectibleGoal.cs" id="1_r6due"]
+[ext_resource type="Texture2D" uid="uid://cmufeog6v4fwa" path="res://Sprites/Sprites/Leaf.png" id="2_lda2h"]
+[ext_resource type="AudioStream" uid="uid://bmkgnrg3hwbi8" path="res://Sounds/SFX/button-124476.mp3" id="3_yum8e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0iog0"]
+radius = 51.0098
+
+[node name="CollectibleGoal" type="Area2D" node_paths=PackedStringArray("audio")]
+script = ExtResource("1_r6due")
+audio = NodePath("AudioStreamPlayer")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(931, 590)
+scale = Vector2(2, 2)
+texture = ExtResource("2_lda2h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(930, 584)
+shape = SubResource("CircleShape2D_0iog0")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yum8e")
+pitch_scale = 2.01
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
